@@ -1,0 +1,18 @@
+{% load i18n %}
+{% autoescape off %}
+
+{% blocktranslate %}
+You're receiving this email because you requested a otp for your user account at {{ site_name }}.
+{% endblocktranslate %}
+
+{% translate "To verify your email address, please use the following One Time Password (OTP):" %}
+
+Your OTP is {{ otp }}
+
+{% translate 'Do not share this OTP with anyone. Amazon takes your account security very seriously. Amazon Customer Service will never ask you to disclose or verify your Amazon password, OTP, credit card, or banking account number. If you receive a suspicious email with a link to update your account information, do not click on the link—instead, report the email to Amazon for investigation.' %}
+
+{% translate "Thank you for shopping with us! We hope to see you again soon." %}
+
+{% blocktranslate %}The {{ site_name }} team{% endblocktranslate %}
+
+{% endautoescape %}

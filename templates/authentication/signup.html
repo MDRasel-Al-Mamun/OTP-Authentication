@@ -1,0 +1,116 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block title %} Sign Up {% endblock %}
+
+{% block extrahead %} {% endblock %}
+
+{% block extrastyle %} {% endblock %}
+
+{% block header %} {% endblock %}
+
+{% block content %}
+
+<div class="container">
+ <div class="row">
+  <div class="col-md-6 mx-auto">
+   {% include 'partials/_messages.html' %}
+
+   {% if otp %}
+
+   <div class="card container">
+    <h5 class="card-header default-color-dark white-text text-center py-4">
+     <strong>Verify Your Email</strong>
+    </h5>
+    <strong class="px-lg-4 pt-3 pb-1">To verify your email, we've sent a One Time Password (OTP) to your email address
+     <a href="{% url 'signup' %}" class="text-default">(Change)</a>
+    </strong>
+    <div class="card-body px-lg-4 pt-4">
+     <form id="validation-form" style="color: #757575;" action="" method="POST">
+      {% csrf_token %}
+      <div class="md-form mt-0">
+       <input type="hidden" name="user" value="{{user.username}}">
+       <input type="text" id="otp" name="otp" class="form-control">
+       <label for="otp">Enter OTP</label>
+      </div>
+      <button class="btn btn-outline-default btn-rounded btn-block my-4 waves-effect" type="submit">Verify
+       Account</button>
+      <small>
+       <a href="#" class="text-default text-right" onclick="ReSendOTP('{{user.username}}', 'resendOTPmess')">
+        <i id="resendOTPmess">Resend </i> OTP
+       </a>
+      </small>
+     </form>
+    </div>
+   </div>
+
+   {% else %}
+
+   <div class="card container">
+    <h5 class="card-header default-color-dark white-text text-center py-4">
+     <strong>Sign up</strong>
+    </h5>
+    <div class="card-body px-lg-4 pt-0">
+     <form id="validation-form" style="color: #757575;" action="" method="POST">
+      {% csrf_token %}
+      <div class="form-row">
+       <div class="col">
+        <div class="md-form">
+         <input type="text" id="firstName" name="first_name" class="form-control">
+         <label for="firstName">First name</label>
+        </div>
+       </div>
+       <div class="col">
+        <div class="md-form">
+         <input type="text" id="lastName" name="last_name" class="form-control">
+         <label for="lastName">Last name</label>
+        </div>
+       </div>
+      </div>
+      <div class="md-form mt-0">
+       <input type="text" id="userName" name="username" class="form-control">
+       <label for="userName">Username</label>
+       <div class="usernameFeedBackArea invalid-feedback" style="display:none"></div>
+      </div>
+      <div class="md-form mt-0">
+       <input type="email" id="emailField" name="email" class="form-control">
+       <label for="email">E-mail</label>
+       <div class="emailFeedBackArea invalid-feedback" style="display:none"></div>
+      </div>
+      <div class="md-form">
+       <input type="password" id="passwordField" name="password" class="form-control">
+       <label for="passwordField">Password</label>
+      </div>
+      <div class="md-form">
+       <input type="password" id="confirmPassword" name="confirm_password" class="form-control">
+       <label for="confirmPassword">Re-enter password</label>
+      </div>
+      <div class="form-check pl-0">
+       <input type="checkbox" name="agree" class="form-check-input" id="newsLetter">
+       <label class="form-check-label" for="newsLetter">Subscribe to our newsletter</label>
+      </div>
+      <button class="btn btn-outline-default btn-rounded btn-block my-4 waves-effect" type="submit">Sign Up</button>
+      <small>By creating an account, you agree to MDB's
+       <a href="" class="text-default" target="_blank">Conditions of Use</a> and
+       <a href="" class="text-default" target="_blank">Privacy Notice.</a>
+      </small>
+      <hr>
+      <p>Already have an account?
+       <a href="{% url 'signin' %}" class="text-default">Sign In </a>
+      </p>
+     </form>
+    </div>
+   </div>
+
+   {% endif %}
+
+  </div>
+ </div>
+</div>
+
+{% endblock %}
+
+{% block footer %} {% endblock %}
+
+{% block extrascripts %} {% endblock %}

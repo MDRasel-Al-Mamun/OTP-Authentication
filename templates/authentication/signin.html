@@ -1,0 +1,92 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block title %} Sign In {% endblock %}
+
+{% block extrahead %} {% endblock %}
+
+{% block extrastyle %} {% endblock %}
+
+{% block header %} {% endblock %}
+
+{% block content %}
+
+<div class="container">
+ <div class="row">
+  <div class="col-md-6 mx-auto">
+   {% include 'partials/_messages.html' %}
+
+   {% if otp %}
+
+   <div class="card container">
+    <h5 class="card-header default-color-dark white-text text-center py-4">
+     <strong>Verify Your Email</strong>
+    </h5>
+    <strong class="px-lg-4 pt-3 pb-1">To verify your email, we've sent a One Time Password (OTP) to your email address
+     <a href="{% url 'signup' %}" class="text-default">(Change)</a>
+    </strong>
+    <div class="card-body px-lg-4 pt-4">
+     <form id="validation-form" style="color: #757575;" action="" method="POST">
+      {% csrf_token %}
+      <div class="md-form mt-0">
+       <input type="hidden" name="user" value="{{user.username}}">
+       <input type="text" id="otp" name="otp" class="form-control">
+       <label for="userName">OTP</label>
+      </div>
+      <button class="btn btn-outline-default btn-rounded btn-block my-4 waves-effect" type="submit">Verify
+       Account</button>
+      <small>
+       <a href="#" class="text-default text-right" onclick="ReSendOTP('{{user.username}}', 'resendOTPmess')">
+        <i id="resendOTPmess">Resend </i> OTP
+       </a>
+      </small>
+     </form>
+    </div>
+   </div>
+
+   {% else %}
+
+   <div class="card container">
+    <h5 class="card-header default-color-dark white-text text-center py-4">
+     <strong>Sign In</strong>
+    </h5>
+    <div class="card-body px-lg-4 pt-4">
+     <form id="validation-form" style="color: #757575;" action="" method="POST">
+      {% csrf_token %}
+      <div class="md-form mt-0">
+       <input type="text" id="userName" name="username" class="form-control">
+       <label for="userName">Username</label>
+      </div>
+      <div class="md-form">
+       <input type="password" id="password" name="password" class="form-control">
+       <label for="password">Password</label>
+      </div>
+      <div class="form-check pl-0">
+       <input type="checkbox" class="form-check-input" id="keepMe">
+       <label class="form-check-label" for="keepMe">Keep me sign in</label>
+      </div>
+      <button class="btn btn-outline-default btn-rounded btn-block my-4 waves-effect" type="submit">Sign In</button>
+      <small>
+       <a href="" class="text-default">Forgot password?</a>
+      </small>
+      <hr>
+      <p>Not a member?
+       <a href="{% url 'signup' %}" class="text-default">Sign Up </a>
+      </p>
+     </form>
+    </div>
+   </div>
+
+   {% endif %}
+
+  </div>
+ </div>
+</div>
+
+
+{% endblock %}
+
+{% block footer %} {% endblock %}
+
+{% block extrascripts %} {% endblock %}
